@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Tails - Vet Finder</title>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<style>
+  /* Background paws pattern */
+  body {
+    margin: 0;
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    background: #ffe7c7;
+    color: #4a3c31;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23d9a066" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="52" r="8"/><ellipse cx="20" cy="20" rx="6" ry="10"/><ellipse cx="44" cy="20" rx="6" ry="10"/><ellipse cx="15" cy="30" rx="5" ry="7"/><ellipse cx="49" cy="30" rx="5" ry="7"/></svg>');
+    background-repeat: repeat;
+    background-size: 80px 80px;
+    opacity: 0.07;
+    animation: pawPulse 10s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes pawPulse {
+    0%, 100% {
+      opacity: 0.05;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.15;
+      transform: scale(1.1);
+    }
+  }
+
+  /* Header */
+  header {
+    background: #fff8f0;
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px rgba(122, 81, 36, 0.15);
+    position: relative;
+    z-index: 10;
+  }
+  .header-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-title {
+    display: flex;
+    align-items: center;
+  }
+  .logo {
+    width: 60px;
+    margin-right: 12px;
+    filter: drop-shadow(1px 1px 1px #c9963f);
+  }
+  header h1 {
+    font-size: 3rem;
+    color: #bb6e2e;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 1px 1px 1px #f6e8d0;
+  }
+  .header-nav {
+    display: flex;
+    gap: 1rem;
+  }
+  .header-nav .btn {
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #bb6e2e;
+    background: transparent;
+    border: 2px solid #bb6e2e;
+    border-radius: 0.75rem;
+    padding: 0.4rem 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+  }
+  .header-nav .btn:hover {
+    background-color: #bb6e2e;
+    color: #fff8f0;
+  }
+  .header-nav .btn-primary {
+    background-color: #d28f2f;
+    border-color: #d28f2f;
+    color: #fff8f0;
+  }
+  .header-nav .btn-primary:hover {
+    background-color: #bb6e2e;
+    border-color: #bb6e2e;
+    color: #fff8f0;
+  }
+
+  /* Slideshow */
+  .slideshow {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 280px;
+    max-width: 900px;
+    margin: 1rem auto 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 18px rgba(187, 110, 46, 0.25);
+    background: #fff3de;
+  }
+  .slide {
+    min-width: 100%;
+    transition: transform 1s ease-in-out;
+    border-radius: 1rem;
+    overflow: hidden;
+    user-select: none;
+  }
+  .slide img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 1rem;
+    filter: drop-shadow(0 2px 3px rgba(187, 110, 46, 0.15));
+  }
+
+  /* Decorative dogs */
+  .decor-left, .decor-right {
+    position: fixed;
+    top: 50%;
+    width: 220px;
+    max-width: 25vw;
+    transform: translateY(-50%);
+    z-index: 1;
+    user-select: none;
+    filter: drop-shadow(1px 1px 2px #c18f43);
+    opacity: 0.8;
+  }
+  .decor-left {
+    left: 0;
+  }
+  .decor-right {
+    right: 0;
+  }
+
+  /* Filters */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem auto 2rem;
+    max-width: 900px;
+    flex-wrap: wrap;
+    z-index: 10;
+    position: relative;
+  }
+  select, input[type="text"] {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 2px solid #bb6e2e;
+    border-radius: 0.75rem;
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    color: #4a3c31;
+    background: #fff8f0;
+    box-shadow: inset 1px 1px 5px #e5c989;
+    transition: border-color 0.3s ease;
+  }
+  select:hover, input[type="text"]:hover,
+  select:focus, input[type="text"]:focus {
+    border-color: #d28f2f;
+    outline: none;
+    box-shadow: 0 0 8px #d28f2f;
+    background: #fff;
+  }
+
+  /* Clinic list */
+  .clinic-list {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem 2rem;
+    position: relative;
+    z-index: 10;
+  }
+  .clinic {
+    background: #fff8f0;
+    border-radius: 1rem;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 6px 15px rgba(187, 110, 46, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    color: #5a4a3a;
+    cursor: default;
+  }
+  .clinic:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(187, 110, 46, 0.3);
+  }
+  .clinic h3 {
+    margin-top: 0;
+    color: #bb6e2e;
+    font-weight: 700;
+    text-transform: capitalize;
+    user-select: text;
+  }
+  .clinic p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    user-select: text;
+  }
+  .clinic a {
+    text-decoration: none;
+    color: #d28f2f;
+    font-weight: 600;
+    margin-right: 1rem;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+  .clinic a:hover {
+    color: #bb6e2e;
+    text-decoration: underline;
+  }
+  .clinic small {
+    display: block;
+    color: #846a42;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    user-select: text;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    background-color: #fff3de;
+    font-size: 1rem;
+    color: #846a42;
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    user-select: none;
+    box-shadow: inset 0 1px 0 #fbeabd;
+  }
+</style>
+</head>
+<body>
+<header class="animate__animated animate__fadeInDown">
+  <div class="header-container">
+    <div class="logo-title">
+      <img src="HappyTails.png" alt="Happy Tails Logo" class="logo animate__animated animate__bounceIn" />
+      <h1>Happy Tails</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="login.html" class="btn">Login</a>
+      <a href="signup.html" class="btn btn-primary">Signup</a>
+      <a href="#contact" class="btn">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 400px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .slideshow .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .slideshow .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .slideshow .slide.active {
+    opacity: 1;
+    z-index: 1;
+  }
+</style>
+
+<div class="slideshow" id="slideshow">
+  <div class="slide active"><img src="animals-dog-landscape-photography-wallpaper-preview.jpg" alt="Happy dog 1" /></div>
+  <div class="slide"><img src="fuu-j-o5_pRC1jBNc-unsplash.jpg" alt="Happy dog 2" /></div>
+  <div class="slide"><img src="oskar-kadaksoo-iPKbtcX0fdA-unsplash.jpg" alt="Happy dog 3" /></div>
+  <div class="slide"><img src="supratik-deshmukh-C02GqAYEY0w-unsplash.jpg" alt="Happy dog 4" /></div>
+  <div class="slide"><img src="shreyash-mukherjee-9DuTR-toWtA-unsplash (1).jpg" alt="Happy dog 5" /></div>
+  <div class="slide"><img src="martin-martz-Gvq5xl6HtS4-unsplash.jpg" alt="Happy dog 6" /></div>
+  <div class="slide"><img src="hudson-regele-g8h_Hac5i3s-unsplash.jpg" alt="Happy dog 7" /></div>
+  <div class="slide"><img src="anotherxlife-KRHKzNAXANQ-unsplash.jpg" alt="Happy dog 8" /></div>
+</div>
+
+<img src="celine-sayuri-tagami-2s6ORaJY6gI-unsplash.jpg" alt="Dog Left Decoration" class="decor-left animate__animated animate__fadeInLeft" />
+<img src="baptist-standaert-mx0DEnfYxic-unsplash.jpg " alt="Dog Right Decoration" class="decor-right animate__animated animate__fadeInRight" />
+
+<div class="filters animate__animated animate__fadeInUp">
+  <input type="text" id="searchInput" placeholder="Search clinic by name (optional)" />
+  <select id="locationFilter" aria-label="Filter clinics by location">
+    <option value="all">All Locations</option>
+    <option value="baneshwor">Baneshwor</option>
+    <option value="kirtipur">Kirtipur</option>
+    <option value="maitidevi">Maitidevi</option>
+    <option value="balaju">Balaju</option>
+    <option value="putalisadak">Putalisadak</option>
+    <option value="balkhu">Balkhu</option>
+    <option value="kalanki">Kalanki</option>
+    <option value="chabahil">Chabahil</option>
+    <option value="gaushala">Gaushala</option>
+    <option value="boudha">Boudha</option>
+    <option value="sukedhara">Sukedhara</option>
+  </select>
+  <select id="typeFilter" aria-label="Filter clinics by type">
+    <option value="all">All Types</option>
+    <option value="public">Public</option>
+    <option value="private">Private</option>
+  </select>
+</div>
+
+<div class="clinic-list" id="clinicList"></div>
+
+<footer>🐾 Made with love for Kathmandu's pets – Happy Tails 🐶</footer>
+
+<script>
+const slides = document.querySelectorAll("#slideshow .slide");
+let currentSlide = 0;
+function showNextSlide() {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add("active");
+}
+setInterval(showNextSlide, 2000);
+
+  const clinics = [
+    { name: "Kathmandu Animal Treatment Centre", location: "baneshwor", type: "public", phone: "01-4412345", map: "https://maps.app.goo.gl/1" },
+    { name: "Pashupati Veterinary Hospital", location: "maitidevi", type: "public", phone: "01-4423456", map: "https://maps.app.goo.gl/2" },
+    { name: "New Baneshwor Veterinary Clinic", location: "baneshwor", type: "private", phone: "01-4434567", map: "https://maps.app.goo.gl/3" },
+    { name: "Kirtipur Animal Care", location: "kirtipur", type: "private", phone: "01-4445678", map: "https://maps.app.goo.gl/4" },
+    { name: "Maitidevi Pet Clinic", location: "maitidevi", type: "private", phone: "01-4456789", map: "https://maps.app.goo.gl/5" },
+    { name: "Balaju Veterinary Services", location: "balaju", type: "public", phone: "01-4467890", map: "https://maps.app.goo.gl/6" },
+    { name: "Putalisadak Animal Hospital", location: "putalisadak", type: "private", phone: "01-4478901", map: "https://maps.app.goo.gl/7" },
+    { name: "Balkhu Vet Care", location: "balkhu", type: "private", phone: "01-4489012", map: "https://maps.app.goo.gl/8" },
+    { name: "Kalanki Pet Health Center", location: "kalanki", type: "public", phone: "01-4490123", map: "https://maps.app.goo.gl/9" },
+    { name: "Chabahil Animal Clinic", location: "chabahil", type: "private", phone: "01-4401234", map: "https://maps.app.goo.gl/10" },
+    { name: "Gaushala Veterinary Hospital", location: "gaushala", type: "public", phone: "01-4412346", map: "https://maps.app.goo.gl/11" },
+    { name: "Boudha Pet Clinic", location: "boudha", type: "private", phone: "01-4423457", map: "https://maps.app.goo.gl/12" },
+    { name: "Sukedhara Animal Care", location: "sukedhara", type: "private", phone: "01-4434568", map: "https://maps.app.goo.gl/13" },
+    { name: "Baneshwor Pet Hospital", location: "baneshwor", type: "public", phone: "01-4445679", map: "https://maps.app.goo.gl/14" },
+    { name: "Kirtipur Vet Clinic", location: "kirtipur", type: "private", phone: "01-4456780", map: "https://maps.app.goo.gl/15" },
+    { name: "Maitidevi Animal Hospital", location: "maitidevi", type: "public", phone: "01-4467891", map: "https://maps.app.goo.gl/16" },
+    { name: "Balaju Pet Care Center", location: "balaju", type: "private", phone: "01-4478902", map: "https://maps.app.goo.gl/17" },
+    { name: "Putalisadak Veterinary Clinic", location: "putalisadak", type: "public", phone: "01-4489013", map: "https://maps.app.goo.gl/18" },
+    { name: "Balkhu Animal Hospital", location: "balkhu", type: "private", phone: "01-4490124", map: "https://maps.app.goo.gl/19" },
+    { name: "Kalanki Pet Clinic", location: "kalanki", type: "private", phone: "01-4401235", map: "https://maps.app.goo.gl/20" },
+    { name: "Chabahil Veterinary Services", location: "chabahil", type: "public", phone: "01-4412347", map: "https://maps.app.goo.gl/21" },
+    { name: "Gaushala Animal Care", location: "gaushala", type: "private", phone: "01-4423458", map: "https://maps.app.goo.gl/22" },
+    { name: "Boudha Vet Center", location: "boudha", type: "public", phone: "01-4434569", map: "https://maps.app.goo.gl/23" },
+    { name: "Sukedhara Pet Hospital", location: "sukedhara", type: "private", phone: "01-4445670", map: "https://maps.app.goo.gl/24" },
+    { name: "Kathmandu Vet Care", location: "baneshwor", type: "public", phone: "01-4456781", map: "https://maps.app.goo.gl/25" }
+  ];
+
+  const clinicList = document.getElementById('clinicList');
+  const searchInput = document.getElementById('searchInput');
+  const locationFilter = document.getElementById('locationFilter');
+  const typeFilter = document.getElementById('typeFilter');
+
+  function renderClinics() {
+    const search = searchInput.value.toLowerCase();
+    const location = locationFilter.value;
+    const type = typeFilter.value;
+
+    clinicList.innerHTML = '';
+    const filtered = clinics.filter(clinic => {
+      const matchSearch = clinic.name.toLowerCase().includes(search);
+      const matchLocation = location === 'all' || clinic.location === location;
+      const matchType = type === 'all' || clinic.type === type;
+      return matchSearch && matchLocation && matchType;
+    });
+
+    if (filtered.length === 0) {
+      clinicList.innerHTML = '<p style="text-align:center;width:100%">No clinics match your criteria.</p>';
+      return;
+    }
+
+    filtered.forEach(clinic => {
+      const card = document.createElement('div');
+      card.className = 'clinic animate__animated animate__fadeInUp';
+      card.innerHTML = `
+        <h3>${clinic.name}</h3>
+        <p><strong>Location:</strong> ${clinic.location}</p>
+        <p><strong>Type:</strong> ${clinic.type}</p>
+        <p>
+          <a href="tel:${clinic.phone}">📞 Call</a> | 
+          <a href="${clinic.map}" target="_blank" rel="noopener noreferrer">📍 Map</a>
+        </p>
+        <small>${clinic.phone}</small>
+      `;
+      clinicList.appendChild(card);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderClinics);
+  searchInput.addEventListener('input', renderClinics);
+  locationFilter.addEventListener('change', renderClinics);
+  typeFilter.addEventListener('change', renderClinics);
+</script>
+</body>
+</html>

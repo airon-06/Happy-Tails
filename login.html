@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Happy Tails</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+      background: linear-gradient(135deg, #ffe7c7, #d28f2f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #4a3c31;
+      position: relative;
+    }
+    /* Paw shape using CSS */
+    .paw {
+      position: fixed;
+      background: #d7b95a;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.1));
+      opacity: 0.15;
+      z-index: 0;
+      animation: floatPaw 6s ease-in-out infinite;
+    }
+    .paw .toe {
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .paw .toe1 {
+      width: 25px;
+      height: 25px;
+      top: -15px;
+      left: 10px;
+    }
+    .paw .toe2 {
+      width: 30px;
+      height: 30px;
+      top: -25px;
+      left: 35px;
+    }
+    .paw .toe3 {
+      width: 25px;
+      height: 25px;
+      top: -15px;
+      left: 65px;
+    }
+    .paw .toe4 {
+      width: 25px;
+      height: 25px;
+      top: 5px;
+      left: 75px;
+    }
+    .paw .pad {
+      position: absolute;
+      width: 55px;
+      height: 55px;
+      background: inherit;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      bottom: 0;
+      left: 20px;
+    }
+
+    /* Different paw positions and animation delays */
+    .paw1 {
+      width: 90px;
+      height: 90px;
+      top: 20%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+    .paw2 {
+      width: 70px;
+      height: 70px;
+      top: 70%;
+      left: 15%;
+      animation-delay: 3s;
+      opacity: 0.1;
+    }
+    .paw3 {
+      width: 110px;
+      height: 110px;
+      top: 25%;
+      right: 10%;
+      animation-delay: 1.5s;
+    }
+    .paw4 {
+      width: 80px;
+      height: 80px;
+      top: 80%;
+      right: 5%;
+      animation-delay: 4.5s;
+      opacity: 0.12;
+    }
+
+    @keyframes floatPaw {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.15;
+      }
+      50% {
+        transform: translateY(-10px);
+        opacity: 0.25;
+      }
+    }
+
+    .login-container {
+      background: #fff8f0;
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 25px rgba(187, 110, 46, 0.3);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      border: 3px solid #bb6e2e;
+      filter: drop-shadow(1px 1px 1px #d28f2f);
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: #bb6e2e;
+    }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 2px solid #d28f2f;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #4a3c31;
+      background: #fff8f0;
+      transition: border-color 0.3s ease;
+    }
+    input:focus {
+      border-color: #bb6e2e;
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 8px #d28f2f;
+    }
+    button {
+      background: #bb6e2e;
+      color: white;
+      padding: 0.75rem;
+      width: 100%;
+      border: none;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background: #d28f2f;
+    }
+    .signup-link {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #846a42;
+      user-select: none;
+    }
+    .signup-link a {
+      color: #bb6e2e;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Paws in the background -->
+  <div class="paw paw1 animate__animated animate__fadeIn slow">
+    <div class="toe toe1"></div>
+    <div class="toe toe2"></div>
+    <div class="toe toe3"></div>
+    <div class="toe toe4"></div>
+    <div class="pad"></div>
+  </div>
+  <div class="paw paw2 animate__animated animate__fadeIn slow">
+    <div class="toe toe1"></div>
+    <div class="toe toe2"></div>
+    <div class="toe toe3"></div>
+    <div class="toe toe4"></div>
+    <div class="pad"></div>
+  </div>
+  <div class="paw paw3 animate__animated animate__fadeIn slow">
+    <div class="toe toe1"></div>
+    <div class="toe toe2"></div>
+    <div class="toe toe3"></div>
+    <div class="toe toe4"></div>
+    <div class="pad"></div>
+  </div>
+  <div class="paw paw4 animate__animated animate__fadeIn slow">
+    <div class="toe toe1"></div>
+    <div class="toe toe2"></div>
+    <div class="toe toe3"></div>
+    <div class="toe toe4"></div>
+    <div class="pad"></div>
+  </div>
+
+  <div class="login-container animate__animated animate__fadeInUp">
+    <img
+      src="HappyTails.png"
+      alt="Happy Tails Logo"
+      class="logo animate__animated animate__bounceIn"
+    />
+    <h2>Login to Happy Tails</h2>
+    <form onsubmit="event.preventDefault(); window.location.href='Happy Tails.html';">
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="signup-link">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+</body>
+</html>
