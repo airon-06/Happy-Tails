@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka:wght@500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <style>
-  /* Background paws pattern */
   body {
     margin: 0;
     font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
@@ -40,7 +39,6 @@
     }
   }
 
-  /* Header */
   header {
     background: #fff8f0;
     padding: 1rem 0;
@@ -105,7 +103,6 @@
     color: #fff8f0;
   }
 
-  /* Slideshow */
   .slideshow {
     display: flex;
     overflow: hidden;
@@ -134,7 +131,6 @@
     filter: drop-shadow(0 2px 3px rgba(187, 110, 46, 0.15));
   }
 
-  /* Decorative dogs */
   .decor-left, .decor-right {
     position: fixed;
     top: 50%;
@@ -153,7 +149,6 @@
     right: 0;
   }
 
-  /* Filters */
   .filters {
     display: flex;
     justify-content: center;
@@ -251,6 +246,82 @@
     user-select: none;
     box-shadow: inset 0 1px 0 #fbeabd;
   }
+  <style>
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .logo {
+      width: 45px;
+      margin-right: 8px;
+    }
+
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .header-nav {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .slideshow {
+      height: 200px;
+    }
+
+    .slide img {
+      height: 200px;
+    }
+
+    .decor-left,
+    .decor-right {
+      display: none;
+    }
+
+    .slideshow-heading {
+      font-size: 1.5rem;
+    }
+
+    .filters {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+    }
+
+    .clinic-list {
+      grid-template-columns: 1fr;
+      padding: 0 1rem 2rem;
+    }
+
+    .clinic {
+      padding: 1rem;
+    }
+
+    footer {
+      font-size: 0.9rem;
+      padding: 1rem;
+    }
+
+    #contact h2 {
+      font-size: 1.5rem !important;
+    }
+
+    #contact p {
+      font-size: 1rem !important;
+    }
+  }
+  </style>
 </style>
 </head>
 <body>
@@ -298,10 +369,31 @@
     opacity: 1;
     z-index: 1;
   }
+  .slideshow-container {
+  position: relative;
+  text-align: center;
+  margin: auto;
+  max-width: 900px;
+}
+
+.slideshow-heading {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  z-index: 2;
+  font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+  font-size: 2.5rem;
+  color: #fff8f0;
+  text-shadow: 2px 2px 4px #bb6e2e;
+  pointer-events: none;
+}
+
 </style>
 
-<div class="slideshow" id="slideshow">
-  <div class="slide active"><img src="animals-dog-landscape-photography-wallpaper-preview.jpg" alt="Happy dog 1" /></div>
+<div class="slideshow-container">
+  <h2 class="slideshow-heading">Connecting Local Vets With Pets</h2>
+  <div class="slideshow" id="slideshow">
+    <div class="slide active"><img src="animals-dog-landscape-photography-wallpaper-preview.jpg" alt="Happy dog 1" /></div>
   <div class="slide"><img src="fuu-j-o5_pRC1jBNc-unsplash.jpg" alt="Happy dog 2" /></div>
   <div class="slide"><img src="oskar-kadaksoo-iPKbtcX0fdA-unsplash.jpg" alt="Happy dog 3" /></div>
   <div class="slide"><img src="supratik-deshmukh-C02GqAYEY0w-unsplash.jpg" alt="Happy dog 4" /></div>
@@ -309,6 +401,7 @@
   <div class="slide"><img src="martin-martz-Gvq5xl6HtS4-unsplash.jpg" alt="Happy dog 6" /></div>
   <div class="slide"><img src="hudson-regele-g8h_Hac5i3s-unsplash.jpg" alt="Happy dog 7" /></div>
   <div class="slide"><img src="anotherxlife-KRHKzNAXANQ-unsplash.jpg" alt="Happy dog 8" /></div>
+  </div>
 </div>
 
 <img src="celine-sayuri-tagami-2s6ORaJY6gI-unsplash.jpg" alt="Dog Left Decoration" class="decor-left animate__animated animate__fadeInLeft" />
@@ -318,26 +411,44 @@
   <input type="text" id="searchInput" placeholder="Search clinic by name (optional)" />
   <select id="locationFilter" aria-label="Filter clinics by location">
     <option value="all">All Locations</option>
-    <option value="baneshwor">Baneshwor</option>
-    <option value="kirtipur">Kirtipur</option>
-    <option value="maitidevi">Maitidevi</option>
-    <option value="balaju">Balaju</option>
-    <option value="putalisadak">Putalisadak</option>
-    <option value="balkhu">Balkhu</option>
-    <option value="kalanki">Kalanki</option>
-    <option value="chabahil">Chabahil</option>
-    <option value="gaushala">Gaushala</option>
-    <option value="boudha">Boudha</option>
-    <option value="sukedhara">Sukedhara</option>
+    <option value="Baneshwor">Baneshwor</option>
+    <option value="Kirtipur">Kirtipur</option>
+    <option value="Maitidevi">Maitidevi</option>
+    <option value="Balaju">Balaju</option>
+    <option value="Putalisadak">Putalisadak</option>
+    <option value="Balkhu">Balkhu</option>
+    <option value="Kalanki">Kalanki</option>
+    <option value="Chabahil">Chabahil</option>
+    <option value="Gaushala">Gaushala</option>
+    <option value="Boudha">Boudha</option>
+    <option value="Sukedhara">Sukedhara</option>
   </select>
   <select id="typeFilter" aria-label="Filter clinics by type">
     <option value="all">All Types</option>
-    <option value="public">Public</option>
-    <option value="private">Private</option>
+    <option value="Public">Public</option>
+    <option value="Private">Private</option>
   </select>
 </div>
 
 <div class="clinic-list" id="clinicList"></div>
+<section id="contact" style="padding: 2rem 1rem; background: #fff8f0; text-align: center; border-top: 2px dashed #d28f2f;">
+  <h2 style="font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif; color: #bb6e2e; font-size: 2rem; margin-bottom: 1rem;">
+    Contact Us
+  </h2>
+  <p style="font-size: 1.1rem; color: #4a3c31; margin: 0.5rem 0;">
+    📧 Email: <a href="mailto:happytails@gmail.com" style="color: #d28f2f; text-decoration: none;">happytails@gmail.com</a>
+  </p>
+  <p style="font-size : 1.1re,; color: #4a3c31; margin: 0.5rem 0;">
+    Instagram: <a href="https://instagram.com/happytailsnepal" target="_blank" style="color: #d28f2f; text-decoration: none;">@happytailsnepal</a>
+  </p>
+  <p style="font-size: 1.1rem; color: #4a3c31; margin: 0.5rem 0;">
+    📞 Phone: <a href="tel:+9779841250398" style="color: #d28f2f; text-decoration: none;">+977-1-1234567</a>
+  </p>
+  <p style="font-size: 1.1rem; color: #4a3c31; margin: 0.5rem 0;">
+    📍 Location: Kathmandu, Nepal
+  </p>
+</section>
+
 
 <footer>🐾 Made with love for Kathmandu's pets – Happy Tails 🐶</footer>
 
@@ -352,32 +463,182 @@ function showNextSlide() {
 setInterval(showNextSlide, 2000);
 
   const clinics = [
-    { name: "Kathmandu Animal Treatment Centre", location: "baneshwor", type: "public", phone: "01-4412345", map: "https://maps.app.goo.gl/1" },
-    { name: "Pashupati Veterinary Hospital", location: "maitidevi", type: "public", phone: "01-4423456", map: "https://maps.app.goo.gl/2" },
-    { name: "New Baneshwor Veterinary Clinic", location: "baneshwor", type: "private", phone: "01-4434567", map: "https://maps.app.goo.gl/3" },
-    { name: "Kirtipur Animal Care", location: "kirtipur", type: "private", phone: "01-4445678", map: "https://maps.app.goo.gl/4" },
-    { name: "Maitidevi Pet Clinic", location: "maitidevi", type: "private", phone: "01-4456789", map: "https://maps.app.goo.gl/5" },
-    { name: "Balaju Veterinary Services", location: "balaju", type: "public", phone: "01-4467890", map: "https://maps.app.goo.gl/6" },
-    { name: "Putalisadak Animal Hospital", location: "putalisadak", type: "private", phone: "01-4478901", map: "https://maps.app.goo.gl/7" },
-    { name: "Balkhu Vet Care", location: "balkhu", type: "private", phone: "01-4489012", map: "https://maps.app.goo.gl/8" },
-    { name: "Kalanki Pet Health Center", location: "kalanki", type: "public", phone: "01-4490123", map: "https://maps.app.goo.gl/9" },
-    { name: "Chabahil Animal Clinic", location: "chabahil", type: "private", phone: "01-4401234", map: "https://maps.app.goo.gl/10" },
-    { name: "Gaushala Veterinary Hospital", location: "gaushala", type: "public", phone: "01-4412346", map: "https://maps.app.goo.gl/11" },
-    { name: "Boudha Pet Clinic", location: "boudha", type: "private", phone: "01-4423457", map: "https://maps.app.goo.gl/12" },
-    { name: "Sukedhara Animal Care", location: "sukedhara", type: "private", phone: "01-4434568", map: "https://maps.app.goo.gl/13" },
-    { name: "Baneshwor Pet Hospital", location: "baneshwor", type: "public", phone: "01-4445679", map: "https://maps.app.goo.gl/14" },
-    { name: "Kirtipur Vet Clinic", location: "kirtipur", type: "private", phone: "01-4456780", map: "https://maps.app.goo.gl/15" },
-    { name: "Maitidevi Animal Hospital", location: "maitidevi", type: "public", phone: "01-4467891", map: "https://maps.app.goo.gl/16" },
-    { name: "Balaju Pet Care Center", location: "balaju", type: "private", phone: "01-4478902", map: "https://maps.app.goo.gl/17" },
-    { name: "Putalisadak Veterinary Clinic", location: "putalisadak", type: "public", phone: "01-4489013", map: "https://maps.app.goo.gl/18" },
-    { name: "Balkhu Animal Hospital", location: "balkhu", type: "private", phone: "01-4490124", map: "https://maps.app.goo.gl/19" },
-    { name: "Kalanki Pet Clinic", location: "kalanki", type: "private", phone: "01-4401235", map: "https://maps.app.goo.gl/20" },
-    { name: "Chabahil Veterinary Services", location: "chabahil", type: "public", phone: "01-4412347", map: "https://maps.app.goo.gl/21" },
-    { name: "Gaushala Animal Care", location: "gaushala", type: "private", phone: "01-4423458", map: "https://maps.app.goo.gl/22" },
-    { name: "Boudha Vet Center", location: "boudha", type: "public", phone: "01-4434569", map: "https://maps.app.goo.gl/23" },
-    { name: "Sukedhara Pet Hospital", location: "sukedhara", type: "private", phone: "01-4445670", map: "https://maps.app.goo.gl/24" },
-    { name: "Kathmandu Vet Care", location: "baneshwor", type: "public", phone: "01-4456781", map: "https://maps.app.goo.gl/25" }
-  ];
+  {
+    name: "Kathmandu Animal Treatment Centre",
+    location: "Baneshwor",
+    type: "Public",
+    phone: "+977-1-4420282",
+    map: "https://www.google.com/maps/search/?api=1&query=Kathmandu+Animal+Treatment+Centre+Baneshwor"
+  },
+  {
+    name: "Pashupati Veterinary Hospital",
+    location: "Maitidevi",
+    type: "Public",
+    phone: "+977-1-4241445",
+    map: "https://www.google.com/maps/search/?api=1&query=Pashupati+Veterinary+Hospital+Maitidevi"
+  },
+  {
+    name: "New Baneshwor Veterinary Clinic",
+    location: "Baneshwor",
+    type: "Private",
+    phone: "+977-1-4445123",
+    map: "https://www.google.com/maps/search/?api=1&query=New+Baneshwor+Veterinary+Clinic+Baneshwor"
+  },
+  {
+    name: "Kirtipur Animal Care",
+    location: "Kirtipur",
+    type: "Private",
+    phone: "+977-1-4334567",
+    map: "https://www.google.com/maps/search/?api=1&query=Kirtipur+Animal+Care+Kirtipur"
+  },
+  {
+    name: "Maitidevi Pet Clinic",
+    location: "Maitidevi",
+    type: "Private",
+    phone: "+977-1-4422333",
+    map: "https://www.google.com/maps/search/?api=1&query=Maitidevi+Pet+Clinic+Maitidevi"
+  },
+  {
+    name: "Balaju Veterinary Services",
+    location: "Balaju",
+    type: "Public",
+    phone: "+977-1-4339999",
+    map: "https://www.google.com/maps/search/?api=1&query=Balaju+Veterinary+Services+Balaju"
+  },
+  {
+    name: "Putalisadak Animal Hospital",
+    location: "Putalisadak",
+    type: "Private",
+    phone: "+977-1-4446780",
+    map: "https://www.google.com/maps/search/?api=1&query=Putalisadak+Animal+Hospital+Putalisadak"
+  },
+  {
+    name: "Balkhu Vet Care",
+    location: "Balkhu",
+    type: "Private",
+    phone: "+977-1-4442345",
+    map: "https://www.google.com/maps/search/?api=1&query=Balkhu+Vet+Care+Balkhu"
+  },
+  {
+    name: "Kalanki Pet Health Center",
+    location: "Kalanki",
+    type: "Public",
+    phone: "+977-1-4427890",
+    map: "https://www.google.com/maps/search/?api=1&query=Kalanki+Pet+Health+Center+Kalanki"
+  },
+  {
+    name: "Chabahil Animal Clinic",
+    location: "Chabahil",
+    type: "Private",
+    phone: "+977-1-4421457",
+    map: "https://www.google.com/maps/search/?api=1&query=Chabahil+Animal+Clinic+Chabahil"
+  },
+  {
+    name: "Gaushala Veterinary Hospital",
+    location: "Gaushala",
+    type: "Public",
+    phone: "+977-1-4425678",
+    map: "https://www.google.com/maps/search/?api=1&query=Gaushala+Veterinary+Hospital+Gaushala"
+  },
+  {
+    name: "Boudha Pet Clinic",
+    location: "Boudha",
+    type: "Private",
+    phone: "+977-1-4445678",
+    map: "https://www.google.com/maps/search/?api=1&query=Boudha+Pet+Clinic+Boudha"
+  },
+  {
+    name: "Sukedhara Animal Care",
+    location: "Sukedhara",
+    type: "Private",
+    phone: "+977-1-4456789",
+    map: "https://www.google.com/maps/search/?api=1&query=Sukedhara+Animal+Care+Sukedhara"
+  },
+  {
+    name: "Baneshwor Pet Hospital",
+    location: "Baneshwor",
+    type: "Public",
+    phone: "+977-1-4411234",
+    map: "https://www.google.com/maps/search/?api=1&query=Baneshwor+Pet+Hospital+Baneshwor"
+  },
+  {
+    name: "Kirtipur Vet Clinic",
+    location: "Kirtipur",
+    type: "Private",
+    phone: "+977-1-4333456",
+    map: "https://www.google.com/maps/search/?api=1&query=Kirtipur+Vet+Clinic+Kirtipur"
+  },
+  {
+    name: "Maitidevi Animal Hospital",
+    location: "Maitidevi",
+    type: "Public",
+    phone: "+977-1-4421234",
+    map: "https://www.google.com/maps/search/?api=1&query=Maitidevi+Animal+Hospital+Maitidevi"
+  },
+  {
+    name: "Balaju Pet Care Center",
+    location: "Balaju",
+    type: "Private",
+    phone: "+977-1-4336789",
+    map: "https://www.google.com/maps/search/?api=1&query=Balaju+Pet+Care+Center+Balaju"
+  },
+  {
+    name: "Putalisadak Veterinary Clinic",
+    location: "Putalisadak",
+    type: "Public",
+    phone: "+977-1-4442345",
+    map: "https://www.google.com/maps/search/?api=1&query=Putalisadak+Veterinary+Clinic+Putalisadak"
+  },
+  {
+    name: "Balkhu Animal Hospital",
+    location: "Balkhu",
+    type: "Private",
+    phone: "+977-1-4446789",
+    map: "https://www.google.com/maps/search/?api=1&query=Balkhu+Animal+Hospital+Balkhu"
+  },
+  {
+    name: "Kalanki Pet Clinic",
+    location: "Kalanki",
+    type: "Private",
+    phone: "+977-1-4426789",
+    map: "https://www.google.com/maps/search/?api=1&query=Kalanki+Pet+Clinic+Kalanki"
+  },
+  {
+    name: "Chabahil Veterinary Services",
+    location: "Chabahil",
+    type: "Public",
+    phone: "+977-1-4429012",
+    map: "https://www.google.com/maps/search/?api=1&query=Chabahil+Veterinary+Services+Chabahil"
+  },
+  {
+    name: "Gaushala Animal Care",
+    location: "Gaushala",
+    type: "Private",
+    phone: "+977-1-4422345",
+    map: "https://www.google.com/maps/search/?api=1&query=Gaushala+Animal+Care+Gaushala"
+  },
+  {
+    name: "Boudha Vet Center",
+    location: "Boudha",
+    type: "Public",
+    phone: "+977-1-4443456",
+    map: "https://www.google.com/maps/search/?api=1&query=Boudha+Vet+Center+Boudha"
+  },
+  {
+    name: "Sukedhara Pet Hospital",
+    location: "Sukedhara",
+    type: "Private",
+    phone: "+977-1-4454567",
+    map: "https://www.google.com/maps/search/?api=1&query=Sukedhara+Pet+Hospital+Sukedhara"
+  },
+  {
+    name: "Kathmandu Vet Care",
+    location: "Baneshwor",
+    type: "Public",
+    phone: "+977-1-4417890",
+    map: "https://www.google.com/maps/search/?api=1&query=Kathmandu+Vet+Care+Baneshwor"
+  }
+];
 
   const clinicList = document.getElementById('clinicList');
   const searchInput = document.getElementById('searchInput');
