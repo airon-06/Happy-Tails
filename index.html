@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -6,6 +5,9 @@
 <title>Happy Tails - Vet Finder</title>
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka:wght@500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<!-- Preload critical images for faster perceived load -->
+<link rel="preload" href="HappyTails.png" as="image">
+<link rel="preload" href="animals-dog-landscape-photography-wallpaper-preview.jpg" as="image">
 <style>
   body {
     margin: 0;
@@ -15,6 +17,8 @@
     position: relative;
     min-height: 100vh;
     overflow-x: hidden;
+    /* Optimize for touch devices */
+    touch-action: manipulation;
   }
   body::before {
     content: '';
@@ -25,8 +29,9 @@
     background-repeat: repeat;
     background-size: 80px 80px;
     opacity: 0.07;
+    /* Reduce animation intensity on mobile */
     animation: pawPulse 10s ease-in-out infinite;
-    z-index: 0;
+    will-change: opacity, transform;
   }
   @keyframes pawPulse {
     0%, 100% {
@@ -62,6 +67,8 @@
     width: 60px;
     margin-right: 12px;
     filter: drop-shadow(1px 1px 1px #c9963f);
+    /* Optimize image rendering */
+    loading: lazy;
   }
   header h1 {
     font-size: 3rem;
@@ -87,17 +94,24 @@
     text-decoration: none;
     transition: background-color 0.3s ease, color 0.3s ease;
     user-select: none;
+    /* Ensure touch target size */
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
-  .header-nav .btn:hover {
+  .header-nav .btn:hover, .header-nav .btn:focus {
     background-color: #bb6e2e;
     color: #fff8f0;
+    outline: none;
   }
   .header-nav .btn-primary {
     background-color: #d28f2f;
     border-color: #d28f2f;
     color: #fff8f0;
   }
-  .header-nav .btn-primary:hover {
+  .header-nav .btn-primary:hover, .header-nav .btn-primary:focus {
     background-color: #bb6e2e;
     border-color: #bb6e2e;
     color: #fff8f0;
@@ -129,6 +143,8 @@
     object-fit: cover;
     border-radius: 1rem;
     filter: drop-shadow(0 2px 3px rgba(187, 110, 46, 0.15));
+    /* Optimize image loading */
+    loading: lazy;
   }
 
   .decor-left, .decor-right {
@@ -141,6 +157,8 @@
     user-select: none;
     filter: drop-shadow(1px 1px 2px #c18f43);
     opacity: 0.8;
+    /* Optimize image loading */
+    loading: lazy;
   }
   .decor-left {
     left: 0;
@@ -169,16 +187,17 @@
     background: #fff8f0;
     box-shadow: inset 1px 1px 5px #e5c989;
     transition: border-color 0.3s ease;
+    /* Ensure touch target size */
+    min-height: 44px;
   }
   select:hover, input[type="text"]:hover,
   select:focus, input[type="text"]:focus {
     border-color: #d28f2f;
-    outline: none;
+    outline: 2px solid #d28f2f;
     box-shadow: 0 0 8px #d28f2f;
     background: #fff;
   }
 
-  /* Clinic list */
   .clinic-list {
     max-width: 900px;
     margin: auto;
@@ -199,7 +218,7 @@
     color: #5a4a3a;
     cursor: default;
   }
-  .clinic:hover {
+  .clinic:hover, .clinic:focus-within {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(187, 110, 46, 0.3);
   }
@@ -222,10 +241,17 @@
     margin-right: 1rem;
     user-select: none;
     transition: color 0.3s ease;
+    /* Ensure touch target size */
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    line-height: 44px;
   }
-  .clinic a:hover {
+  .clinic a:hover, .clinic a:focus {
     color: #bb6e2e;
     text-decoration: underline;
+    outline: none;
   }
   .clinic small {
     display: block;
@@ -246,100 +272,67 @@
     user-select: none;
     box-shadow: inset 0 1px 0 #fbeabd;
   }
-  <style>
+
   @media (max-width: 768px) {
     header h1 {
       font-size: 2rem;
       letter-spacing: 1px;
     }
-
     .logo {
       width: 45px;
       margin-right: 8px;
     }
-
     .header-container {
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
     }
-
     .header-nav {
       width: 100%;
       justify-content: center;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-
     .slideshow {
       height: 200px;
     }
-
     .slide img {
       height: 200px;
     }
-
-    .decor-left,
-    .decor-right {
+    .decor-left, .decor-right {
       display: none;
     }
-
     .slideshow-heading {
       font-size: 1.5rem;
     }
-
     .filters {
       flex-direction: column;
       gap: 1rem;
       padding: 0 1rem;
     }
-
-    select,
-    input[type="text"] {
+    select, input[type="text"] {
       width: 100%;
     }
-
     .clinic-list {
       grid-template-columns: 1fr;
       padding: 0 1rem 2rem;
     }
-
     .clinic {
       padding: 1rem;
     }
-
     footer {
       font-size: 0.9rem;
       padding: 1rem;
     }
-
     #contact h2 {
       font-size: 1.5rem !important;
     }
-
     #contact p {
       font-size: 1rem !important;
     }
   }
-  </style>
-</style>
-</head>
-<body>
-<header class="animate__animated animate__fadeInDown">
-  <div class="header-container">
-    <div class="logo-title">
-      <img src="HappyTails.png" alt="Happy Tails Logo" class="logo animate__animated animate__bounceIn" />
-      <h1>Happy Tails</h1>
-    </div>
-    <nav class="header-nav">
-      <a href="login.html" class="btn">Login</a>
-      <a href="signup.html" class="btn btn-primary">Signup</a>
-      <a href="#contact" class="btn">Contact</a>
-    </nav>
-  </div>
-</header>
 
-<style>
+  /* Optimize slideshow for mobile */
   .slideshow {
     position: relative;
     width: 100%;
@@ -350,65 +343,77 @@
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   }
-
   .slideshow .slide {
     position: absolute;
     width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
+    will-change: opacity;
   }
-
   .slideshow .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    loading: lazy;
   }
-
   .slideshow .slide.active {
     opacity: 1;
     z-index: 1;
   }
   .slideshow-container {
-  position: relative;
-  text-align: center;
-  margin: auto;
-  max-width: 900px;
-}
-
-.slideshow-heading {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  z-index: 2;
-  font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
-  font-size: 2.5rem;
-  color: #fff8f0;
-  text-shadow: 2px 2px 4px #bb6e2e;
-  pointer-events: none;
-}
-
+    position: relative;
+    text-align: center;
+    margin: auto;
+    max-width: 900px;
+  }
+  .slideshow-heading {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    z-index: 2;
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    font-size: 2.5rem;
+    color: #fff8f0;
+    text-shadow: 2px 2px 4px #bb6e2e;
+    pointer-events: none;
+  }
 </style>
+</head>
+<body>
+<header class="animate__animated animate__fadeInDown">
+  <div class="header-container">
+    <div class="logo-title">
+      <img src="HappyTails.png" alt="Happy Tails Logo" class="logo animate__animated animate__bounceIn" />
+      <h1>Happy Tails</h1>
+    </div>
+    <nav class="header-nav">
+      <a href="login.html" class="btn" aria-label="Login to your account">Login</a>
+      <a href="signup.html" class="btn btn-primary" aria-label="Sign up for an account">Signup</a>
+      <a href="#contact" class="btn" aria-label="Contact us">Contact</a>
+    </nav>
+  </div>
+</header>
 
 <div class="slideshow-container">
   <h2 class="slideshow-heading">Connecting Local Vets With Pets</h2>
   <div class="slideshow" id="slideshow">
-    <div class="slide active"><img src="animals-dog-landscape-photography-wallpaper-preview.jpg" alt="Happy dog 1" /></div>
-  <div class="slide"><img src="fuu-j-o5_pRC1jBNc-unsplash.jpg" alt="Happy dog 2" /></div>
-  <div class="slide"><img src="oskar-kadaksoo-iPKbtcX0fdA-unsplash.jpg" alt="Happy dog 3" /></div>
-  <div class="slide"><img src="supratik-deshmukh-C02GqAYEY0w-unsplash.jpg" alt="Happy dog 4" /></div>
-  <div class="slide"><img src="shreyash-mukherjee-9DuTR-toWtA-unsplash (1).jpg" alt="Happy dog 5" /></div>
-  <div class="slide"><img src="martin-martz-Gvq5xl6HtS4-unsplash.jpg" alt="Happy dog 6" /></div>
-  <div class="slide"><img src="hudson-regele-g8h_Hac5i3s-unsplash.jpg" alt="Happy dog 7" /></div>
-  <div class="slide"><img src="anotherxlife-KRHKzNAXANQ-unsplash.jpg" alt="Happy dog 8" /></div>
+    <div class="slide active"><img src="animals-dog-landscape-photography-wallpaper-preview.jpg" alt="Happy dog 1" loading="lazy" /></div>
+    <div class="slide"><img src="fuu-j-o5_pRC1jBNc-unsplash.jpg" alt="Happy dog 2" loading="lazy" /></div>
+    <div class="slide"><img src="oskar-kadaksoo-iPKbtcX0fdA-unsplash.jpg" alt="Happy dog 3" loading="lazy" /></div>
+    <div class="slide"><img src="supratik-deshmukh-C02GqAYEY0w-unsplash.jpg" alt="Happy dog 4" loading="lazy" /></div>
+    <div class="slide"><img src="shreyash-mukherjee-9DuTR-toWtA-unsplash (1).jpg" alt="Happy dog 5" loading="lazy" /></div>
+    <div class="slide"><img src="martin-martz-Gvq5xl6HtS4-unsplash.jpg" alt="Happy dog 6" loading="lazy" /></div>
+    <div class="slide"><img src="hudson-regele-g8h_Hac5i3s-unsplash.jpg" alt="Happy dog 7" loading="lazy" /></div>
+    <div class="slide"><img src="anotherxlife-KRHKzNAXANQ-unsplash.jpg" alt="Happy dog 8" loading="lazy" /></div>
   </div>
 </div>
 
-<img src="celine-sayuri-tagami-2s6ORaJY6gI-unsplash.jpg" alt="Dog Left Decoration" class="decor-left animate__animated animate__fadeInLeft" />
-<img src="baptist-standaert-mx0DEnfYxic-unsplash.jpg " alt="Dog Right Decoration" class="decor-right animate__animated animate__fadeInRight" />
+<img src="celine-sayuri-tagami-2s6ORaJY6gI-unsplash.jpg" alt="Dog Left Decoration" class="decor-left animate__animated animate__fadeInLeft" loading="lazy" />
+<img src="baptist-standaert-mx0DEnfYxic-unsplash.jpg" alt="Dog Right Decoration" class="decor-right animate__animated animate__fadeInRight" loading="lazy" />
 
 <div class="filters animate__animated animate__fadeInUp">
-  <input type="text" id="searchInput" placeholder="Search clinic by name (optional)" />
+  <input type="text" id="searchInput" placeholder="Search clinic by name (optional)" aria-label="Search clinics by name" />
   <select id="locationFilter" aria-label="Filter clinics by location">
     <option value="all">All Locations</option>
     <option value="Baneshwor">Baneshwor</option>
@@ -438,7 +443,7 @@
   <p style="font-size: 1.1rem; color: #4a3c31; margin: 0.5rem 0;">
     📧 Email: <a href="mailto:happytails@gmail.com" style="color: #d28f2f; text-decoration: none;">happytails@gmail.com</a>
   </p>
-  <p style="font-size : 1.1re,; color: #4a3c31; margin: 0.5rem 0;">
+  <p style="font-size: 1.1rem; color: #4a3c31; margin: 0.5rem 0;">
     Instagram: <a href="https://instagram.com/happytailsnepal" target="_blank" style="color: #d28f2f; text-decoration: none;">@happytailsnepal</a>
   </p>
   <p style="font-size: 1.1rem; color: #4a3c31; margin: 0.5rem 0;">
@@ -448,7 +453,6 @@
     📍 Location: Kathmandu, Nepal
   </p>
 </section>
-
 
 <footer>🐾 Made with love for Kathmandu's pets – Happy Tails 🐶</footer>
 
@@ -462,7 +466,7 @@ function showNextSlide() {
 }
 setInterval(showNextSlide, 2000);
 
-  const clinics = [
+const clinics = [
   {
     name: "Kathmandu Animal Treatment Centre",
     location: "Baneshwor",
@@ -640,50 +644,66 @@ setInterval(showNextSlide, 2000);
   }
 ];
 
-  const clinicList = document.getElementById('clinicList');
-  const searchInput = document.getElementById('searchInput');
-  const locationFilter = document.getElementById('locationFilter');
-  const typeFilter = document.getElementById('typeFilter');
+const clinicList = document.getElementById('clinicList');
+const searchInput = document.getElementById('searchInput');
+const locationFilter = document.getElementById('locationFilter');
+const typeFilter = document.getElementById('typeFilter');
 
-  function renderClinics() {
-    const search = searchInput.value.toLowerCase();
-    const location = locationFilter.value;
-    const type = typeFilter.value;
+// Debounce function to limit rapid input events
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
 
-    clinicList.innerHTML = '';
-    const filtered = clinics.filter(clinic => {
-      const matchSearch = clinic.name.toLowerCase().includes(search);
-      const matchLocation = location === 'all' || clinic.location === location;
-      const matchType = type === 'all' || clinic.type === type;
-      return matchSearch && matchLocation && matchType;
-    });
+function renderClinics() {
+  const search = searchInput.value.toLowerCase();
+  const location = locationFilter.value;
+  const type = typeFilter.value;
 
-    if (filtered.length === 0) {
-      clinicList.innerHTML = '<p style="text-align:center;width:100%">No clinics match your criteria.</p>';
-      return;
-    }
+  clinicList.innerHTML = '';
+  const filtered = clinics.filter(clinic => {
+    const matchSearch = clinic.name.toLowerCase().includes(search);
+    const matchLocation = location === 'all' || clinic.location === location;
+    const matchType = type === 'all' || clinic.type === type;
+    return matchSearch && matchLocation && matchType;
+  });
 
-    filtered.forEach(clinic => {
-      const card = document.createElement('div');
-      card.className = 'clinic animate__animated animate__fadeInUp';
-      card.innerHTML = `
-        <h3>${clinic.name}</h3>
-        <p><strong>Location:</strong> ${clinic.location}</p>
-        <p><strong>Type:</strong> ${clinic.type}</p>
-        <p>
-          <a href="tel:${clinic.phone}">📞 Call</a> | 
-          <a href="${clinic.map}" target="_blank" rel="noopener noreferrer">📍 Map</a>
-        </p>
-        <small>${clinic.phone}</small>
-      `;
-      clinicList.appendChild(card);
-    });
+  if (filtered.length === 0) {
+    clinicList.innerHTML = '<p style="text-align:center;width:100%">No clinics match your criteria.</p>';
+    return;
   }
 
-  document.addEventListener('DOMContentLoaded', renderClinics);
-  searchInput.addEventListener('input', renderClinics);
-  locationFilter.addEventListener('change', renderClinics);
-  typeFilter.addEventListener('change', renderClinics);
+  // Use DocumentFragment to minimize reflows
+  const fragment = document.createDocumentFragment();
+  filtered.forEach(clinic => {
+    const card = document.createElement('div');
+    card.className = 'clinic animate__animated animate__fadeInUp';
+    card.innerHTML = `
+      <h3>${clinic.name}</h3>
+      <p><strong>Location:</strong> ${clinic.location}</p>
+      <p><strong>Type:</strong> ${clinic.type}</p>
+      <p>
+        <a href="tel:${clinic.phone}" aria-label="Call ${clinic.name}">📞 Call</a> | 
+        <a href="${clinic.map}" target="_blank" rel="noopener noreferrer" aria-label="View ${clinic.name} on map">📍 Map</a>
+      </p>
+      <small>${clinic.phone}</small>
+    `;
+    fragment.appendChild(card);
+  });
+  clinicList.appendChild(fragment);
+}
+
+document.addEventListener('DOMContentLoaded', renderClinics);
+searchInput.addEventListener('input', debounce(renderClinics, 300));
+locationFilter.addEventListener('change', renderClinics);
+typeFilter.addEventListener('change', renderClinics);
 </script>
 </body>
 </html>
